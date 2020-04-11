@@ -1,0 +1,522 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=windows-1252">
+    <title>Altitude, Azimuth, GMST,GHA,LHA,LST of a Star</title>
+    <script type="text/javascript" src="http://gc.kis.v2.scr.kaspersky-labs.com/FD126C42-EBFA-4E12-B309-BB3FDD723AC1/main.js?attr=24iaHoqD6lpfzuRSCbE4vXVOo6d_Jf8YX5ssxuLNtDdum7RHxjjwi_ahF_KDeMLfccIk3OnSwTsAmO8omHHBrw" charset="UTF-8"></script>
+    <link rel="stylesheet" crossorigin="anonymous" href="http://gc.kis.v2.scr.kaspersky-labs.com/E3E8934C-235A-4B0E-825A-35A08381A191/abn/main.css?attr=aHR0cDovL2p1a2F1a29yLm1ibmV0LmZpL3N0YXJfYWx0aXR1ZGUuaHRtbA"/>
+    <style type="text/css">body {background-image: url(tausta.gif); margin-left: 15%; margin-right: 15%; font-weight: bold;} </style>
+
+    <script language="JavaScript">
+
+      // converts degree,min,sec to degree
+      function Deg(as, min, sek)
+      {
+	  return (as + min/60 + sek/3600);
+      }
+      
+      // Julian Day 1900 < Year < 2099
+      function JulianDay(yy,mm,dd)
+      {
+	  var tulos;
+
+	  tulos = 367 * yy - Math.floor(7 * (yy + Math.floor((mm + 9) / 12)) / 4)
+	          - Math.floor(3 * (Math.floor((yy + (mm - 9) / 7) / 100) + 1) / 4)
+	          + Math.floor(275 * mm / 9) + dd + 1721028.5;
+
+	  return tulos;
+      }
+
+      // calculates Greenwich sidereal time in hours
+      function Greenwich (yy,mm,dd,time) {
+	  // calculates Greenwich sidereal time in hours
+	  var T,JD,GWT0,GW,GMST;
+
+	  // JD is Julian Day
+	  JD = JulianDay(yy,mm,dd);
+
+	  T = (JD - 2451545.0)/36525;
+
+	  // GWT0 is Greenwich Sidereal Time in hours
+	  GWT0 = (24110.54841+8640184.812866*T+0.093104*T*T-0.0000062*T*T*T)/3600;
+	  GW = GWT0;
+	  
+	  if (GWT0 >= 24)
+	      GW = GWT0 - 24*Math.floor(GWT0/24);
+	  
+	  if (GWT0 <= - 24)
+	      GW = 24 -(Math.abs(GWT0) - 24*Math.floor(Math.abs(GWT0)/24));
+	  
+	  GMST = GW + 1.00273790935*time;
+	  
+	  if (GMST >= 24)
+	      GMST = GMST - 24;
+	  if (GMST < 0 )
+	      GMST = GMST + 24;
+	  
+	  if (false)
+	  {
+	      document.form1.debug1.value = time;
+	      document.form1.debug2.value = GW;
+	      document.form1.debug3.value = GMST;
+	  }
+
+	  return GMST;
+      }
+
+
+
+
+
+
+
+      
+      function reset()
+      {
+	  document.form1.Altdeg.value = "";
+	  document.form1.Altmin.value = "";
+	  document.form1.Altsec.value = "";
+	  document.form1.RAhour.value = "";
+	  document.form1.RAmin.value = "";
+	  document.form1.RAsec.value = "";
+	  document.form1.Decdeg.value = "";
+	  document.form1.Decmin.value = "";
+	  document.form1.Decsec.value = "";
+	  document.form1.Year.value = "";
+	  document.form1.Month.value = "";
+	  document.form1.Day.value = "";
+	  document.form1.Hour.value = "";
+	  document.form1.Min.value = "";
+	  document.form1.Sec.value = "";
+	  document.form1.AzdegN.value = "";
+	  document.form1.AzminN.value = "";
+	  document.form1.AzsecN.value = "";
+	  document.form1.AzdegS.value = "";
+	  document.form1.AzminS.value = "";
+	  document.form1.AzsecS.value = "";
+	  document.form1.latdeg.value = "";
+	  document.form1.latmin.value = "";
+	  document.form1.latsec.value = "";
+	  document.form1.longdeg.value = "";
+	  document.form1.longmin.value = "";
+	  document.form1.longsec.value = "";
+      }
+      
+      function coordinateInput()
+      {
+	  RAhour = parseFloat(document.form1.RAhour.value);
+	  RAmin = parseFloat(document.form1.RAmin.value);
+	  RAsec = parseFloat(document.form1.RAsec.value);
+	  Decdeg = parseFloat(document.form1.Decdeg.value);
+	  Decmin = parseFloat(document.form1.Decmin.value);
+	  Decsec = parseFloat(document.form1.Decsec.value);
+	  Year = parseFloat(document.form1.Year.value);
+	  Month = parseFloat(document.form1.Month.value);
+	  Day = parseFloat(document.form1.Day.value);
+	  Hour = parseFloat(document.form1.Hour.value);
+	  Min = parseFloat(document.form1.Min.value);
+	  Sec = parseFloat(document.form1.Sec.value);
+
+	  latdeg = parseFloat(document.form1.latdeg.value);
+	  latmin = parseFloat(document.form1.latmin.value);
+	  latsec = parseFloat(document.form1.latsec.value);
+	  longdeg = parseFloat(document.form1.longdeg.value);
+	  longmin = parseFloat(document.form1.longmin.value);
+	  longsec = parseFloat(document.form1.longsec.value);
+
+	  // Check input values;
+	  main="valid";
+      }
+
+      function calculate()
+      {
+	  var JD, GMST, LST, RA, SHA, x, asx, minx, sekx, y, miny, seky;
+	  if (main == "valid")
+	  {
+	      Dec = Deg(Decdeg,Decmin,Decsec)*Math.PI/180;
+
+	      if (document.form1.dechemis.value == "South")
+		  Dec = -Dec;
+
+	      RA = Deg(RAhour,RAmin,RAsec);
+
+	      // SHA Sidereal Hour Angle of star in Nautical Almanacs
+	      SHA = 360 - RA*15;
+
+	      // DEBUG ********************************************************************************************
+	      if (false)
+	      {
+		  document.form1.debug1.value = Dec;
+		  document.form1.debug2.value = RA;
+		  document.form1.debug3.value = SHA;
+	      }
+	      // DEBUG ********************************************************************************************
+
+	      x = Math.floor(SHA);
+	      minx = Math.floor(60*(SHA - x));
+	      sekx = (SHA - x - minx/60)*3600;
+
+	      // DEBUG ********************************************************************************************
+	      if (false)
+	      {
+		  document.form1.debug1.value = x;
+		  document.form1.debug2.value = minx;
+		  document.form1.debug3.value = sekx;
+	      }
+	      // DEBUG ********************************************************************************************
+
+
+	      document.form1.SHAdeg.value = x;
+	      document.form1.SHAmin.value = minx;
+	      document.form1.SHAsec.value = sekx;
+
+	      time = Deg(Hour,Min,Sec);
+	      latitude = Deg(latdeg,latmin,latsec)*Math.PI/180;
+	      
+	      if (document.form1.hemis.value == "South")
+		  latitude = -latitude;
+	      
+	      longitudedeg = Deg(longdeg,longmin,longsec);
+
+	      if (document.form1.toeastwest.value == "West")
+		  longitudedeg = -longitudedeg; 
+
+
+	      // DEBUG ********************************************************************************************
+	      if (false)
+	      {
+		  document.form1.debug1.value = time;
+		  document.form1.debug2.value = latitude;
+		  document.form1.debug3.value = longitudedeg;
+	      }
+	      // DEBUG ********************************************************************************************
+
+
+
+	      // Julian Day at UT0   
+	      JD = JulianDay(Year,Month,Day);
+	      document.form1.JD.value = JD; 
+  
+	      // GMST Greenwich Mean Sidereal Time
+	      GMST = Greenwich(Year,Month,Day,time);
+	      
+	      x = Math.floor(GMST);
+	      minx = Math.floor(60 * (GMST - x));
+	      sekx = (GMST - x - minx/60) * 3600;
+	      
+	      // DEBUG ********************************************************************************************
+	      if (true)
+	      {
+		  document.form1.debug1.value = JD;
+		  document.form1.debug2.value = GMST;
+		  document.form1.debug3.value = time;
+	      }
+	      // DEBUG ********************************************************************************************
+
+	      document.form1.GMSThour.value = x;
+	      document.form1.GMSTmin.value = minx;
+	      document.form1.GMSTsec.value = sekx;
+
+	      // LST is Local Sidereal Time in hours, differs from GMST by longitude
+	      LST = Greenwich(Year,Month,Day,time) + longitudedeg/15;
+
+	      if (LST < 0)
+		  LST = LST + 24;
+	      
+	      if (LST >= 24)
+		  LST = LST - 24;
+	      
+	      x = Math.floor(LST);
+	      minx = Math.floor(60 * (LST - x));
+	      sekx = (LST - x - minx/60) * 3600;
+	      
+
+	      document.form1.LSThour.value = x;
+	      document.form1.LSTmin.value = minx;
+	      document.form1.LSTsec.value = sekx;
+
+	      // hourangle is local hourangle in hours
+	      hourangle = LST - RA;
+	      if (hourangle < 0)
+		  hourangle = 24 + hourangle;
+
+	      // DEBUG ********************************************************************************************
+	      if (false)
+	      {
+		  document.form1.debug1.value = LST;
+		  document.form1.debug2.value = longitudedeg;
+		  document.form1.debug3.value = hourangle;
+	      }
+	      // DEBUG ********************************************************************************************
+
+	      
+	      x = Math.floor(hourangle);
+	      minx = Math.floor(60 * (hourangle - x));
+	      sekx = (hourangle - x - minx/60)*3600;
+	      
+	      document.form1.star1.value = document.form1.star.value;
+	      document.form1.star2.value = document.form1.star.value;
+	      document.form1.star3.value = document.form1.star.value;
+	      document.form1.LHAhour.value = x;
+	      document.form1.LHAmin.value = minx;
+	      document.form1.LHAsec.value = sekx;
+
+	      // GHA is Greenwich Hour Angle
+	      GHA = hourangle - longitudedeg/15;
+
+	      if (GHA >= 24)
+		  GHA = GHA - 24;
+
+	      if (GHA < 0)
+		  GHA = GHA + 24;
+
+	      x = Math.floor(GHA);
+	      minx = Math.floor(60 * (GHA - x));
+	      sekx = (GHA - x - minx/60) * 3600;
+	      
+	      document.form1.GHAhour.value = x;
+	      document.form1.GHAmin.value = minx;
+	      document.form1.GHAsec.value = sekx;
+      
+	      hourangle = hourangle*Math.PI/12;
+
+	      // DEBUG ********************************************************************************************
+	      if (false)
+	      {
+		  document.form1.debug1.value = GHA;
+		  document.form1.debug2.value = longitudedeg;
+		  document.form1.debug3.value = hourangle;
+	      }
+	      // DEBUG ********************************************************************************************
+
+
+	      // Altitude
+	      with (Math)
+	      {
+		  RA = RA * PI/12;
+		  sinAlt = cos(hourangle) * cos(Dec) * cos(latitude) + sin(Dec) * sin(latitude);
+		  maxsinAlt = cos(Dec) * cos(latitude) +sin(Dec) * sin(latitude);  
+		  altitude = asin(sinAlt);
+		  maxaltitude = asin(maxsinAlt);  
+	      }
+	      
+	      // DEBUG ********************************************************************************************
+	      if (true)
+	      {
+		  document.form1.debug1.value = hourangle;
+		  document.form1.debug2.value = Dec;
+		  document.form1.debug3.value = latitude;
+		  document.form1.debug4.value = sinAlt;
+		  document.form1.debug5.value = maxsinAlt;
+		  document.form1.debug6.value = altitude;
+	      }
+	      // DEBUG ********************************************************************************************
+
+	      x = Math.abs(altitude * 180/Math.PI);
+	      asx = Math.floor(x);
+	      minx = Math.floor(60 * (x - asx));
+	      sekx = (x - asx - minx / 60) * 3600;
+	      
+	      if (altitude < 0)
+		  asx = -asx
+	      
+	      document.form1.Altdeg.value = asx;
+	      document.form1.Altmin.value = minx;
+	      document.form1.Altsec.value = sekx;
+  
+	      maxx = Math.abs(maxaltitude * 180/Math.PI);
+	      maxasx = Math.floor(maxx);
+	      maxminx = Math.floor(60 * (maxx - maxasx));
+	      maxsekx = (maxx - maxasx - maxminx/60) * 3600;
+	      
+	      if (maxaltitude < 0)
+		  maxasx = -maxasx
+	      
+	      document.form1.maxAltdeg.value = maxasx;
+	      document.form1.maxAltmin.value = maxminx;
+	      document.form1.maxAltsec.value = maxsekx;  
+
+	      // Azimuth
+	      with (Math)
+	      {
+		  cosAz = (sin(Dec) - sin(latitude) * sin(altitude)) / (cos(latitude) * cos(altitude));
+		  azimuth = acos(cosAz);
+		  azimuth = azimuth * 180 / PI;	   
+	      }
+
+	      if (hourangle < Math.PI)
+		  azimuth =  360 - azimuth; 
+   
+	      // DEBUG ********************************************************************************************
+	      if (false)
+	      {
+		  document.form1.debug1.value = altitude;
+		  document.form1.debug2.value = cosAz;
+		  document.form1.debug3.value = azimuth;
+	      }
+	      // DEBUG ********************************************************************************************
+
+	      // North to East - Azimuth          	 
+	      asx = Math.floor(azimuth);
+	      minx = Math.floor(60*(azimuth -asx));
+	      sekx = (azimuth - asx - minx/60)*3600;
+	      
+	      document.form1.AzdegN.value = asx;
+	      document.form1.AzminN.value = minx;
+	      document.form1.AzsecN.value = sekx;
+
+	      // South to West - North Azimuth
+	      if (azimuth < 180)
+		  azimuth = azimuth + 180;
+	      else
+		  azimuth = azimuth - 180;
+	      
+	      asx = Math.floor(azimuth);
+	      minx = Math.floor(60 * (azimuth - asx));
+	      sekx = (azimuth - asx - minx/60) * 3600;
+	      
+	      // DEBUG ********************************************************************************************
+	      if (false)
+	      {
+		  document.form1.debug1.value = asx;
+		  document.form1.debug2.value = sekx;
+		  document.form1.debug3.value = azimuth;
+	      }
+	      // DEBUG ********************************************************************************************
+
+	      document.form1.AzdegS.value = asx;
+	      document.form1.AzminS.value = minx;
+	      document.form1.AzsecS.value = sekx;
+	  }
+	  else
+	  {
+	      // main is invalid
+	      // input error comments
+	  }
+      }
+
+    </script>
+  </head>
+  <body>
+    <h1>Calculate Altitude and Azimuth of a Star</h1>
+
+    <p> INPUT: Coordinates of the star, Greenwich Mean Time (UT), location<br>
+      OUTPUT: Altitude and Azimuth of the star </p>
+
+    <p> </p>
+
+    <form name="form1"> <font size="+3">Star </font> <input name="star" value="M31" size="12"><br>
+      
+      <p> <font size="+2">Right Ascention of Star&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Declination of Star<br></font>
+	Hour <input name="RAhour" value="0" size="2">
+	Min  <input name="RAmin"  value="42" size="2">
+	Sec  <input name="RAsec"  value="44.3" size="3">
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        Deg <input name="Decdeg" value="41" size="2">&nbsp;
+	Min <input name="Decmin" value="16" size="2">&nbsp;
+	Sec <input name="Decsec" value="44.3" size="3">
+        <select name="dechemis">
+          <option value="North">North </option>
+          <option value="South">South </option>
+      </select></p>
+      
+      <p> <font size="+2">
+	  Greenwich Mean Time (UT is EDT+4)<br></font>
+	Year<input name="Year" value="2020" size="4">&nbsp;
+	Month <input name="Month" value="4" size="2">&nbsp;
+	Day <input name="Day" value="2" size="2">&nbsp;
+	Hour<input name="Hour" value="01" size="2">&nbsp;
+	Min <input name="Min" value="30" size="2">&nbsp;
+	Sec <input name="Sec" value="00" size="3"> </p>
+
+      <p> <font size="+2">Latitude and Longitude of the measurement location<br>
+	  Latitude:&nbsp;&nbsp;&nbsp;</font>
+	Deg <input name="latdeg" value="40" size="3">
+	Min <input name="latmin" value="16" size="3">
+	Sec <input name="latsec" value="58.21" size="3">
+        <select name="hemis">
+          <option value="North">North </option>
+          <option value="South">South</option>
+        </select><br>
+        <font size="+2">
+	  Longitude: </font>
+	Deg <input name="longdeg" value="74" size="3">
+	Min <input name="longmin" value="59" size="3">
+	Sec <input name="longsec" value="50.53" size="3">
+        <select name="toeastwest">
+          <option value="West">West </option>
+          <option value="East">East </option>
+        </select>
+        <br></p>
+      
+      <p><font size="+2">Click on Button:</font> <input name="resett" onclick="reset()" value="RESET" type="button">
+	<input name="start" onclick="coordinateInput();calculate()" value="CALCULATE" type="button"> </p>
+
+
+      <p> <font size="+2">Debug Values</font><br>
+	Debug1 <input name="debug1" value="0" size="3">
+	Debug2 <input name="debug2" value="0" size="3">
+	Debug3 <input name="debug3" value="0" size="3">
+	Debug4 <input name="debug4" value="0" size="3">
+	Debug5 <input name="debug5" value="0" size="3">
+	Debug6 <input name="debug6" value="0" size="3">
+
+      
+      
+      <hr> <font size="+3"> The Altitude and the Azimuth of the Star:<br></font>
+
+      <font size="+2">Altitude:&nbsp;&nbsp;&nbsp;</font> <input name="Altdeg"
+        size="3"> degrees <input name="Altmin" size="3"> minutes <input name="Altsec"
+        size="3"> seconds <br>
+
+      <font size="+2">Azimuth from North to East (clockwise): </font> <input name="AzdegN"
+        size="3"> degrees <input name="AzminN" size="3"> minutes <input name="AzsecN"
+        size="3"> seconds <br>
+
+      <font size="+2">Azimuth from South to West (clockwise): </font> <input name="AzdegS" size="3"> degrees <input name="AzminS" size="3"> minutes <input name="AzsecS" size="3"> seconds<br>
+
+      <font size="+2">maxAltitude (where star in South):&nbsp;&nbsp;&nbsp;</font>
+
+      <input name="maxAltdeg" size="3"> degrees <input name="maxAltmin" size="3"> minutes <input name="maxAltsec" size="3"> seconds <br>
+      <p> <font size="+2">Additional Information:</font>
+	<br>
+        Julian Day at UT0: <input name="JD" size="10">
+	<br>
+        Greenwich Mean Sidereal Time (GMST):
+	<input name="GMSThour" size="3"> hours <input name="GMSTmin" size="3"> minutes <input name="GMSTsec" size="3"> seconds
+	<br>
+        Local Sidereal Time (LST):
+	<input name="LSThour" size="3">	hours <input name="LSTmin" size="3"> minutes <input name="LSTsec" size="3"> seconds
+	<br>
+        Local Hour Angle (LHA) of <input name="star1" size="12"> <input name="LHAhour"
+          size="3"> hours <input name="LHAmin" size="3"> minutes <input name="LHAsec" size="3"> seconds
+	<br>
+        Greenwich Hour Angle (GHA) of <input name="star2" size="12"> <input name="GHAhour"
+          size="3"> hours <input name="GHAmin" size="3"> minutes <input name="GHAsec" size="3"> seconds
+	<br>
+        Sidereal Hour Angle (SHA) of <input name="star3" size="12"> <input name="SHAdeg"
+          size="3"> degrees <input name="SHAmin" size="3"> minutes <input name="SHAsec" size="3"> seconds
+	<br>
+        <br>
+      </p>
+      
+      <hr>
+      <h3><a href="Star_altitude_azimuth.pdf">Mathematical Background of Calculation of a Star's Altitude and Azimuth</a></h3>
+      <h3><a href="astronavigation.html">Latitude and Longitude using two star's
+          altitude<br>
+          (Good method,when you see many stars)</a></h3>
+      <h3><a href="positioning_from_azimuth_altitude.html">Calculate Position from one star's azimuth and altitude<br>
+          (No so good as two star's altitude method, but<br>
+          suitable for emergency situations when there is only one star visible)</a></h3>
+      <h3><a href="navigation.html">Navigation, Astronavigation, Positioning,
+          Geodesy</a></h3>
+      <br>
+      Juhani Kaukoranta, Finland<br>
+      <a href="mailto:juhani.kaukoranta@gmail.com">Email:
+        juhani.kaukoranta@gmail.com</a><br>
+      <a href="http://jukaukor.mbnet.fi/">Homepage: http://jukaukor.mbnet.fi/</a><br>
+      Last changes 16.9.2018
+      <p></p>
+    </form>
+  </body>
+</html>
