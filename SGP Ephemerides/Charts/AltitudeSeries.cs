@@ -161,11 +161,12 @@ namespace SGP_Ephemerides.Charts
         private void BuildYearOptimalSeries()
         {
             DateTime point, startMinute, endMinute, aboveHorizonStartTime, aboveHorizonStopTime;
-            List<Tuple<DateTime, DateTime>> horizonCrossingList = new List<Tuple<DateTime, DateTime>>();
+            List<Tuple<DateTime, DateTime, double>> horizonCrossingList = new List<Tuple<DateTime, DateTime, double>>();
             TimeSpan dayDelta, minutedelta, crossingDelta ;
             Tuple<double, double, double> targetPosition;
             bool aboveHorizon = false;
             double maxAltitude;
+            double aboveHorizonAltitude;
             double maxAboveHorizonMinutes;
             int day, minute;
 
@@ -204,6 +205,7 @@ namespace SGP_Ephemerides.Charts
                 minute = 0;
                 maxAltitude = -90.0;
                 aboveHorizon = false;
+                aboveHorizonAltitude = -90.0;
                 while (minute < minutedelta.TotalMinutes)
                 {
                     point = startMinute.AddMinutes(minute);
@@ -212,42 +214,47 @@ namespace SGP_Ephemerides.Charts
 
                     maxAltitude = (targetPosition.Item1 < maxAltitude) ? maxAltitude : targetPosition.Item1;
 
-                    if ((targetPosition.Item1 >= locationClone.Horizon) && (aboveHorizon == false))
+                    if ((targetPosition.Item1 >= locationClone.Horizon) && (aboveHorizon == false))  // Mark time target the first time it rises above horizon
                     {
+                        aboveHorizonAltitude = targetPosition.Item1;
                         aboveHorizonStartTime = point;
                         aboveHorizon = true;
                     }
 
-                    if ((targetPosition.Item1 <= locationClone.Horizon) && (aboveHorizon == true))
+                    if ((targetPosition.Item1 <= locationClone.Horizon) && (aboveHorizon == true))  // Mark time target falls below horizon after being above horizon
                     {
                         aboveHorizonStopTime = point;
                         aboveHorizon = false;
-                        horizonCrossingList.Add(Tuple.Create(aboveHorizonStartTime, aboveHorizonStopTime));
+                        horizonCrossingList.Add(Tuple.Create(aboveHorizonStartTime, aboveHorizonStopTime, aboveHorizonAltitude));
                     }
 
                     minute += 1;
                 }
 
-                if (aboveHorizon == true)
+                if (aboveHorizon == true) // Target was above horizon at Astonimical Dawn
                 {
                     aboveHorizonStopTime = point;
-                    horizonCrossingList.Add(Tuple.Create(aboveHorizonStartTime, aboveHorizonStopTime));
+                    horizonCrossingList.Add(Tuple.Create(aboveHorizonStartTime, aboveHorizonStopTime, aboveHorizonAltitude));
                 }
 
+                // Deal with multiple above -> below's. Cheat: just take first time
                 maxAboveHorizonMinutes = 0;
+                aboveHorizonAltitude = locationClone.Horizon;
                 foreach (var item in horizonCrossingList)
                 {
                     crossingDelta = item.Item2.Subtract(item.Item1);
-                    if (crossingDelta >= locationClone.Duration)
+                    if (crossingDelta >= locationClone.Duration)   // Was target above horizon for at least the minimum Duration?
                     {
+                        aboveHorizonAltitude   = (item.Item3 > aboveHorizonAltitude) ? item.Item3 : aboveHorizonAltitude;
                         maxAboveHorizonMinutes = (crossingDelta.TotalMinutes > maxAboveHorizonMinutes) ? crossingDelta.TotalMinutes : maxAboveHorizonMinutes;
                     }
                 }
                 horizonCrossingList.Clear();
 
                 maxAltitude = (maxAboveHorizonMinutes > 0) ? maxAltitude : -90;
+                aboveHorizonAltitude = (maxAboveHorizonMinutes > 0) ? aboveHorizonAltitude : -90;
 
-                mTargetSeries.Points.AddXY(endMinute.AddMinutes(-1), maxAltitude);
+                mTargetSeries.Points.AddXY(endMinute.AddMinutes(-1), aboveHorizonAltitude); // maxAltitude);
                 day++;
             }
 

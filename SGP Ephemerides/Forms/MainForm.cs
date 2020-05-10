@@ -4,7 +4,8 @@ using System.Drawing;
 using System.Windows.Forms;
 using SGP_Ephemerides.Support;
 using System.Threading.Tasks;
-using System.Globalization;
+using LocalLib;
+
 
 namespace SGP_Ephemerides
 {
