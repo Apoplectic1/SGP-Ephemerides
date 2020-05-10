@@ -58,8 +58,8 @@
     <Prefer32Bit>true</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="CoordinateSharp, Version=2.5.1.1, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\CoordinateSharp.2.5.1.1\lib\net40\CoordinateSharp.dll</HintPath>
+    <Reference Include="CoordinateSharp, Version=2.5.2.1, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\CoordinateSharp.2.5.2.1\lib\net40\CoordinateSharp.dll</HintPath>
     </Reference>
     <Reference Include="LocalLib">
       <HintPath>..\..\..\General\LocalLib\LocalLib\bin\Release\LocalLib.dll</HintPath>
@@ -81,7 +81,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Charts\AltitudeChartForm.cs">
+    <Compile Include="Forms\AltitudeChartForm.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Charts\AltitudeChart.cs" />
@@ -99,7 +99,7 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <EmbeddedResource Include="Charts\AltitudeChartForm.resx">
+    <EmbeddedResource Include="Forms\AltitudeChartForm.resx">
       <DependentUpon>AltitudeChartForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\MainForm.resx">

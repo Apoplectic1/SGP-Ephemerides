@@ -462,6 +462,206 @@
         <member name="M:CoordinateSharp.Celestial.#ctor(System.Boolean)">
             Used to create empty Celestial objects.
         </member>
+        <member name="M:CoordinateSharp.Celestial.CalculateCelestialTime(System.Double,System.Double,System.DateTime,CoordinateSharp.EagerLoad)">
+            <summary>
+            Calculates all celestial data. Coordinates will notify as changes occur
+            </summary>
+            <param name="lat">Decimal format latitude</param>
+            <param name="longi">Decimal format longitude</param>
+            <param name="date">Geographic DateTime</param>
+            <param name="el">EagerLoading Info for Auto-Calculations</param>
+        </member>
+        <member name="M:CoordinateSharp.Celestial.CalculateCelestialTime(System.Double,System.Double,System.DateTime,CoordinateSharp.EagerLoad,System.Double)">
+            <summary>
+            Calculates all celestial data. Coordinates will notify as changes occur
+            </summary>
+            <param name="lat">Decimal format latitude</param>
+            <param name="longi">Decimal format longitude</param>
+            <param name="date">Geographic DateTime</param>
+            <param name="el">EagerLoading Info for Auto-Calculations</param>
+            <param name="offset">UTC offset in hours</param>
+        </member>
+        <member name="M:CoordinateSharp.Celestial.Local_Convert(CoordinateSharp.Coordinate,System.Double,CoordinateSharp.Celestial_EagerLoad)">
+            <summary>
+            In place time slip
+            </summary>
+            <param name="c">Coordinate</param>
+            <param name="offset">hour offset</param>
+            <param name="el">Celestial EagerLoad Option</param>
+        </member>
+        <member name="P:CoordinateSharp.Celestial.SunSet">
+            <summary>
+            Sunset time.
+            </summary>
+            <remarks>If DateTime is null, check the SunCondition property.</remarks>
+            <example>
+            The following example gets the sunset time in UTC at N 39, W 72 on 1-March-2018
+            <code>
+            Coordinate coordinate = new Coordinate(39,-72, new DateTime(2018,3,1));
+            Console.WriteLine(coordinate.CelestialInfo.SunSet); //3/1/2018 10:41:34 PM (UTC)
+            </code>
+            
+            The following example demonstrates a returned null SunSet value as the sun does not set at N 39, W 72 on 1-March-2018. 
+            You can see why there is no value returned by checking the SunCondition property to see that the sun is down all day
+            at the specified location.
+            <code>
+            Coordinate coordinate = new Coordinate(85,-72, new DateTime(2018,3,1));
+            Console.WriteLine(coordinate.CelestialInfo.SunSet); //Returns Null
+            Console.WriteLine(coordinate.CelestialInfo.SunCondition); //DownAllDay
+            </code>
+            
+            </example>
+        </member>
+        <member name="P:CoordinateSharp.Celestial.SunRise">
+            <summary>
+            Sunrise time.
+            </summary>
+            <remarks>If DateTime is null, check the SunCondition property.</remarks>
+            <example>
+            The following example gets the sunrise time in UTC at N 39, W 72 on 1-March-2018
+            <code>
+            Coordinate coordinate = new Coordinate(39,-72, new DateTime(2018,3,1));
+            Console.WriteLine(coordinate.CelestialInfo.SunRise); 3/1/2018 11:22:04 AM (UTC)
+            </code>
+            The following example demonstrates a returned null SunRise value as the sun does not rise at N 39, W 72 on 1-March-2018. 
+            You can see why there is no value returned by checking the SunCondition property to see that the sun is down all day
+            at the specified location.
+            <code>
+            Coordinate coordinate = new Coordinate(85,-72, new DateTime(2018,3,1));
+            Console.WriteLine(coordinate.CelestialInfo.SunSet); //Returns Null
+            Console.WriteLine(coordinate.CelestialInfo.SunCondition); //DownAllDay
+            </code>
+            </example>
+        </member>
+        <member name="P:CoordinateSharp.Celestial.MoonSet">
+            <summary>
+            Moon set time.
+            </summary>
+            <remarks>If DateTime is null, check the MoonCondition property.</remarks>
+            <example>
+            The following example gets the moon set time in UTC at N 39, W 72 on 1-March-2018
+            <code>
+            Coordinate coordinate = new Coordinate(39,-72, new DateTime(2018,3,1));
+            Console.WriteLine(coordinate.CelestialInfo.MoonSet); 3/1/2018 11:12:08 AM (UTC)
+            </code>
+            The following example demonstrates a returned null MoonSet value as the moon does not set at N 39, W 72 on 1-March-2018. 
+            You can see why there is no value returned by checking the MoonCondition property to see that the moon is up all day
+            at the specified location.
+            <code>
+            Coordinate coordinate = new Coordinate(85,-72, new DateTime(2018,3,1));
+            Console.WriteLine(coordinate.CelestialInfo.MoonSet); //Returns Null
+            Console.WriteLine(coordinate.CelestialInfo.MoonCondition); //UpAllDay
+            </code>
+            </example>
+        </member>
+        <member name="P:CoordinateSharp.Celestial.MoonRise">
+            <summary>
+            Moon rise time.
+            </summary>
+            <remarks>If DateTime is null, check the MoonCondition property.</remarks>
+            <example>
+            The following example gets the moon rise time in UTC at N 39, W 72 on 1-March-2018
+            <code>
+            Coordinate coordinate = new Coordinate(39,-72, new DateTime(2018,3,1));
+            Console.WriteLine(coordinate.CelestialInfo.MoonRise); 3/1/2018 10:27:07 PM (UTC)
+            </code>
+            The following example demonstrates a returned null MoonRise value as the moon does not rise at N 39, W 72 on 1-March-2018. 
+            You can see why there is no value returned by checking the MoonCondition property to see that the moon is up all day
+            at the specified location.
+            <code>
+            Coordinate coordinate = new Coordinate(85,-72, new DateTime(2018,3,1));
+            Console.WriteLine(coordinate.CelestialInfo.MoonRise); //Returns Null
+            Console.WriteLine(coordinate.CelestialInfo.MoonCondition); //UpAllDay
+            </code>
+            </example>
+        </member>
+        <member name="P:CoordinateSharp.Celestial.SunAltitude">
+            <summary>
+            Sun altitude in degrees (E of N).
+            </summary>
+        </member>
+        <member name="P:CoordinateSharp.Celestial.SunAzimuth">
+            <summary>
+            Sun azimuth in degrees (E of N).
+            </summary>
+        </member>
+        <member name="P:CoordinateSharp.Celestial.MoonAltitude">
+            <summary>
+            Moon altitude in degrees (E of N) (corrected for parallax and refraction).
+            </summary>
+        </member>
+        <member name="P:CoordinateSharp.Celestial.MoonAzimuth">
+            <summary>
+            Moon azimuth in degrees (E of N).
+            </summary>
+        </member>
+        <member name="P:CoordinateSharp.Celestial.MoonDistance">
+            <summary>
+            Estimated moon distance from the earth.
+            </summary>
+        </member>
+        <member name="P:CoordinateSharp.Celestial.SunCondition">
+            <summary>
+            Sun's Condition based on the provided date.
+            </summary>
+        </member>
+        <member name="P:CoordinateSharp.Celestial.MoonCondition">
+            <summary>
+            Moon's condition based on the provided date.
+            </summary>
+        </member>
+        <member name="P:CoordinateSharp.Celestial.IsSunUp">
+            <summary>
+            Determine if the sun is currently up, based on sunset and sunrise time at the provided location and date.
+            </summary>
+        </member>
+        <member name="P:CoordinateSharp.Celestial.IsMoonUp">
+            <summary>
+            Determine if the moon is currently up, based on moon set and moon rise time at the provided location and date.
+            </summary>
+        </member>
+        <member name="P:CoordinateSharp.Celestial.MoonIllum">
+            <summary>
+            Moon illumination details based on the provided date.
+            </summary>
+            <remarks>
+            Contains phase, phase name, fraction and angle
+            </remarks>
+        </member>
+        <member name="P:CoordinateSharp.Celestial.Perigee">
+            <summary>
+            Moons perigee details based on the provided date.
+            </summary>
+        </member>
+        <member name="P:CoordinateSharp.Celestial.Apogee">
+            <summary>
+            Moons apogee details based on the provided date.
+            </summary>
+        </member>
+        <member name="P:CoordinateSharp.Celestial.AdditionalSolarTimes">
+            <summary>
+            Additional solar event times based on the provided date and location.
+            </summary>
+            <remarks>Contains dawn, dusk and twilight times.</remarks>
+        </member>
+        <member name="P:CoordinateSharp.Celestial.AstrologicalSigns">
+            <summary>
+            Astrological signs based on the provided date.
+            </summary>
+            <remarks>
+            Contains zodiac, moon sign and moon name during full moon events
+            </remarks>
+        </member>
+        <member name="P:CoordinateSharp.Celestial.SolarEclipse">
+            <summary>
+            Solar eclipse details.
+            </summary>
+        </member>
+        <member name="P:CoordinateSharp.Celestial.LunarEclipse">
+            <summary>
+            Lunar eclipse details.
+            </summary>
+        </member>
         <member name="M:CoordinateSharp.Celestial.LoadCelestial(CoordinateSharp.Coordinate)">
             <summary>
             Creates a Celestial object based on a Coordinate.
@@ -556,25 +756,6 @@
             
             </code>
             </example>
-        </member>
-        <member name="M:CoordinateSharp.Celestial.CalculateCelestialTime(System.Double,System.Double,System.DateTime,CoordinateSharp.EagerLoad)">
-            <summary>
-            Calculates all celestial data. Coordinates will notify as changes occur
-            </summary>
-            <param name="lat">Decimal format latitude</param>
-            <param name="longi">Decimal format longitude</param>
-            <param name="date">Geographic DateTime</param>
-            <param name="el">EagerLoading Info for Auto-Calculations</param>
-        </member>
-        <member name="M:CoordinateSharp.Celestial.CalculateCelestialTime(System.Double,System.Double,System.DateTime,CoordinateSharp.EagerLoad,System.Double)">
-            <summary>
-            Calculates all celestial data. Coordinates will notify as changes occur
-            </summary>
-            <param name="lat">Decimal format latitude</param>
-            <param name="longi">Decimal format longitude</param>
-            <param name="date">Geographic DateTime</param>
-            <param name="el">EagerLoading Info for Auto-Calculations</param>
-            <param name="offset">UTC offset in hours</param>
         </member>
         <member name="M:CoordinateSharp.Celestial.Get_Solar_Eclipse_Table(System.Double,System.Double,System.DateTime)">
              <summary>
@@ -678,6 +859,438 @@
              Console.WriteLine(perigee.NextPerigee.Date + " " + perigee.NextPerigee.Distance.Kilometers); //3/19/2019 7:48:22 PM 359378.005775414
              </code>
              </example>
+        </member>
+        <member name="M:CoordinateSharp.Celestial.Get_Next_SunSet(CoordinateSharp.Coordinate)">
+            <summary>
+            Gets the next sunset from the provided point in time at the passed location. 
+            </summary>
+            <param name="coordinate">Coordinate</param>
+            <returns>DateTime</returns>
+            <example>
+            The following example gets the next sunset from the point in time at the provided location.
+            <code>
+            DateTime d = new DateTime(2019, 2, 6);
+            Coordinate c = new Coordinate(40.0352, -74.5844, d);
+            
+            //JBMDL
+            DateTime sun = Celestial.Get_Next_SunSet(c); //2/6/2019 10:23:54 PM (UTC)
+            </code>
+            </example>
+        </member>
+        <member name="M:CoordinateSharp.Celestial.Get_Next_SunSet(System.Double,System.Double,System.DateTime)">
+            <summary>
+            Gets the next sunset from the provided point in time at the passed location. 
+            </summary>
+            <param name="lat">Latitude</param>
+            <param name="longi">Longitude</param>
+            <param name="geoDate">DateTime at Location</param>   
+            <returns>DateTime</returns>
+            <example>
+            The following example gets the next sunset from the point in time at the provided location.
+            <code>
+            DateTime d = new DateTime(2019, 2, 6);
+            
+            //JBMDL
+            DateTime sun = Celestial.Get_Next_SunSet(40.0352, -74.5844, d); //2/6/2019 10:23:54 PM (UTC)
+            </code>
+            </example>
+        </member>
+        <member name="M:CoordinateSharp.Celestial.Get_Next_SunSet(System.Double,System.Double,System.DateTime,System.Double)">
+            <summary>
+            Gets the next sunset from the provided point in time at the passed location. 
+            </summary>
+            <param name="lat">Latitude</param>
+            <param name="longi">Longitude</param>
+            <param name="geoDate">DateTime at Location</param>
+            <param name="offset">UTC Offset</param>
+            <returns>DateTime</returns>
+            <example>
+            The following example gets the next sunset from the point in time at the provided location using a UTC offset to convert the time to local.
+            <code>
+            DateTime d = new DateTime(2019, 2, 6);
+            
+            //JBMDL (EST TIME)
+            DateTime sun = Celestial.Get_Next_SunSet(40.0352, -74.5844, d, -4); //2/6/2019 6:23:54 PM (EST)
+            </code>
+            </example>
+        </member>
+        <member name="M:CoordinateSharp.Celestial.Get_Last_SunSet(CoordinateSharp.Coordinate)">
+            <summary>
+            Gets the last sunset from the provided point in time at the passed location. 
+            </summary>
+            <param name="coordinate">Coordinate</param>
+            <returns>DateTime</returns>
+            <example>
+            The following example gets the last sunset from the point in time at the provided location.
+            <code>
+            DateTime d = new DateTime(2019, 2, 6);
+            Coordinate c = new Coordinate(40.0352, -74.5844, d);
+            
+            //JBMDL
+            DateTime sun = Celestial.Get_Last_SunSet(c); //2/5/2019 10:22:41 PM (UTC)
+            </code>
+            </example>
+        </member>
+        <member name="M:CoordinateSharp.Celestial.Get_Last_SunSet(System.Double,System.Double,System.DateTime)">
+            <summary>
+            Gets the last sunset from the provided point in time at the passed location. 
+            </summary>
+            <param name="lat">Latitude</param>
+            <param name="longi">Longitude</param>
+            <param name="geoDate">DateTime at Location</param>   
+            <returns>DateTime</returns>
+            <example>
+            The following example gets the last sunset from the point in time at the provided location.
+            <code>
+            DateTime d = new DateTime(2019, 2, 6);
+            
+            //JBMDL
+            DateTime sun = Celestial.Get_Last_SunSet(40.0352, -74.5844, d); //2/5/2019 10:22:41 PM (UTC)
+            </code>
+            </example>
+        </member>
+        <member name="M:CoordinateSharp.Celestial.Get_Last_SunSet(System.Double,System.Double,System.DateTime,System.Double)">
+            <summary>
+            Gets the last sunset from the provided point in time at the passed location. 
+            </summary>
+            <param name="lat">Latitude</param>
+            <param name="longi">Longitude</param>
+            <param name="geoDate">DateTime at Location</param>
+            <param name="offset">UTC Offset</param>
+            <returns>DateTime</returns>
+            <example>
+            The following example gets the last sunset from the point in time at the provided location using a UTC offset to convert the time to local.
+            <code>
+            DateTime d = new DateTime(2019, 2, 6);
+            
+            //JBMDL (EST TIME)
+            DateTime sun = Celestial.Get_Last_SunSet(40.0352, -74.5844, d, -4); //2/5/2019 6:22:41 PM (EST)
+            </code>
+            </example>
+        </member>
+        <member name="M:CoordinateSharp.Celestial.Get_Next_SunRise(CoordinateSharp.Coordinate)">
+            <summary>
+            Gets the next sunrise from the provided point in time at the passed location. 
+            </summary>
+            <param name="coordinate">Coordinate</param>
+            <returns>DateTime</returns>
+            <example>
+            The following example gets the next sunrise from the point in time at the provided location.
+            <code>
+            DateTime d = new DateTime(2019, 2, 6);
+            Coordinate c = new Coordinate(40.0352, -74.5844, d);
+            
+            //JBMDL
+            DateTime sun = Celestial.Get_Next_SunRise(c); //2/6/2019 12:03:33 PM (UTC)
+            </code>
+            </example>
+        </member>
+        <member name="M:CoordinateSharp.Celestial.Get_Next_SunRise(System.Double,System.Double,System.DateTime)">
+            <summary>
+            Gets the next sunrise from the provided point in time at the passed location. 
+            </summary>
+            <param name="lat">Latitude</param>
+            <param name="longi">Longitude</param>
+            <param name="geoDate">DateTime at Location</param>
+            <returns>DateTime</returns>
+            <example>
+            The following example gets the next sunrise from the point in time at the provided location using a UTC offset to convert the time to local.
+            <code>
+            DateTime d = new DateTime(2019, 2, 6);
+            
+            //JBMDL
+            DateTime sun = Celestial.Get_Next_SunRise(40.0352, -74.5844, d); //2/6/2019 12:03:33 PM (UTC)
+            </code>
+            </example>
+        </member>
+        <member name="M:CoordinateSharp.Celestial.Get_Next_SunRise(System.Double,System.Double,System.DateTime,System.Double)">
+            <summary>
+            Gets the next sunrise from the provided point in time at the passed location. 
+            </summary>
+            <param name="lat">Latitude</param>
+            <param name="longi">Longitude</param>
+            <param name="geoDate">DateTime at Location</param>
+            <param name="offset">UTC Offset</param>
+            <returns>DateTime</returns>
+            <example>
+            The following example gets the next sunrise from the point in time at the provided location using a UTC offset to convert the time to local.
+            <code>
+            DateTime d = new DateTime(2019, 2, 6);
+            
+            //JBMDL (EST TIME)
+            DateTime sun = Celestial.Get_Next_SunRise(40.0352, -74.5844, d, -4); //2/6/2019 8:03:33 AM (EST)
+            </code>
+            </example>
+        </member>
+        <member name="M:CoordinateSharp.Celestial.Get_Last_SunRise(CoordinateSharp.Coordinate)">
+            <summary>
+            Gets the last sunrise from the provided point in time at the passed location. 
+            </summary>
+            <param name="coordinate">Coordinate</param>
+            <returns>DateTime</returns>
+            <example>
+            The following example gets the last sunrise from the point in time at the provided location.
+            <code>
+            DateTime d = new DateTime(2019, 2, 6);
+            Coordinate c = new Coordinate(40.0352, -74.5844, d);
+            
+            //JBMDL
+            DateTime sun = Celestial.Get_Last_SunRise(c); //2/5/2019 12:04:35 PM (UTC)
+            </code>
+            </example>
+        </member>
+        <member name="M:CoordinateSharp.Celestial.Get_Last_SunRise(System.Double,System.Double,System.DateTime)">
+            <summary>
+            Gets the last sunrise from the provided point in time at the passed location. 
+            </summary>
+            <param name="lat">Latitude</param>
+            <param name="longi">Longitude</param>
+            <param name="geoDate">DateTime at Location</param>
+            <returns>DateTime</returns>
+            <example>
+            The following example gets the last sunrise from the point in time at the provided location using a UTC offset to convert the time to local.
+            <code>
+            DateTime d = new DateTime(2019, 2, 6);
+            
+            //JBMDL
+            DateTime sun = Celestial.Get_Last_SunRise(40.0352, -74.5844, d); //2/5/2019 12:04:35 PM (UTC)
+            </code>
+            </example>
+        </member>
+        <member name="M:CoordinateSharp.Celestial.Get_Last_SunRise(System.Double,System.Double,System.DateTime,System.Double)">
+            <summary>
+            Gets the last sunrise from the provided point in time at the passed location. 
+            </summary>
+            <param name="lat">Latitude</param>
+            <param name="longi">Longitude</param>
+            <param name="geoDate">DateTime at Location</param>
+            <param name="offset">UTC Offset</param>
+            <returns>DateTime</returns>
+            <example>
+            The following example gets the last sunrise from the point in time at the provided location using a UTC offset to convert the time to local.
+            <code>
+            DateTime d = new DateTime(2019, 2, 6);
+            
+            //JBMDL (EST TIME)
+            DateTime sun = Celestial.Get_Last_SunRise(40.0352, -74.5844, d, -4); //2/5/2019 8:04:35 AM (EST)
+            </code>
+            </example>
+        </member>
+        <member name="M:CoordinateSharp.Celestial.Get_Next_MoonSet(CoordinateSharp.Coordinate)">
+            <summary>
+            Gets the next moon set from the provided point in time at the passed location. 
+            </summary>
+            <param name="coordinate">Coordinate</param>
+            <returns>DateTime</returns>
+            <example>
+            The following example gets the next moon set from the point in time at the provided location.
+            <code>
+            DateTime d = new DateTime(2019, 2, 6);
+            Coordinate c = new Coordinate(40.0352, -74.5844, d);
+            
+            //JBMDL
+            DateTime moon = Celestial.Get_Next_MoonSet(c); //2/7/2019 12:08:33 AM (UTC)
+            </code>
+            </example>
+        </member>
+        <member name="M:CoordinateSharp.Celestial.Get_Next_MoonSet(System.Double,System.Double,System.DateTime)">
+            <summary>
+            Gets the next moon set from the provided point in time at the passed location. 
+            </summary>
+            <param name="lat">Latitude</param>
+            <param name="longi">Longitude</param>
+            <param name="geoDate">DateTime at Location</param>   
+            <returns>DateTime</returns>
+            <example>
+            The following example gets the next moon set from the point in time at the provided location.
+            <code>
+            DateTime d = new DateTime(2019, 2, 6);
+            
+            //JBMDL
+            DateTime moon = Celestial.Get_Next_MoonSet(40.0352, -74.5844, d); //2/7/2019 12:08:33 AM (UTC)
+            </code>
+            </example>
+        </member>
+        <member name="M:CoordinateSharp.Celestial.Get_Next_MoonSet(System.Double,System.Double,System.DateTime,System.Double)">
+            <summary>
+            Gets the next moon set from the provided point in time at the passed location. 
+            </summary>
+            <param name="lat">Latitude</param>
+            <param name="longi">Longitude</param>
+            <param name="geoDate">DateTime at Location</param>
+            <param name="offset">UTC Offset</param>
+            <returns>DateTime</returns>
+            <example>
+            The following example gets the next moon set from the point in time at the provided location using a UTC offset to convert the time to local.
+            <code>
+            DateTime d = new DateTime(2019, 2, 6);
+            
+            //JBMDL (EST TIME)
+            DateTime moon = Celestial.Get_Next_MoonSet(40.0352, -74.5844, d, -4); //2/6/2019 8:08:33 PM (EST)
+            </code>
+            </example>
+        </member>
+        <member name="M:CoordinateSharp.Celestial.Get_Last_MoonSet(CoordinateSharp.Coordinate)">
+            <summary>
+            Gets the last moon set from the provided point in time at the passed location. 
+            </summary>
+            <param name="coordinate">Coordinate</param>
+            <returns>DateTime</returns>
+            <example>
+            The following example gets the last moon set from the point in time at the provided location.
+            <code>
+            DateTime d = new DateTime(2019, 2, 6);
+            Coordinate c = new Coordinate(40.0352, -74.5844, d);
+            
+            //JBMDL
+            DateTime moon = Celestial.Get_Last_MoonSet(c); //2/5/2019 11:11:09 PM (UTC)
+            </code>
+            </example>
+        </member>
+        <member name="M:CoordinateSharp.Celestial.Get_Last_MoonSet(System.Double,System.Double,System.DateTime)">
+            <summary>
+            Gets the last moon set from the provided point in time at the passed location. 
+            </summary>
+            <param name="lat">Latitude</param>
+            <param name="longi">Longitude</param>
+            <param name="geoDate">DateTime at Location</param>   
+            <returns>DateTime</returns>
+            <example>
+            The following example gets the last moon set from the point in time at the provided location.
+            <code>
+            DateTime d = new DateTime(2019, 2, 6);
+            
+            //JBMDL
+            DateTime moon = Celestial.Get_Last_MoonSet(40.0352, -74.5844, d); //2/5/2019 11:11:09 PM (UTC)
+            </code>
+            </example>
+        </member>
+        <member name="M:CoordinateSharp.Celestial.Get_Last_MoonSet(System.Double,System.Double,System.DateTime,System.Double)">
+            <summary>
+            Gets the last moon set from the provided point in time at the passed location. 
+            </summary>
+            <param name="lat">Latitude</param>
+            <param name="longi">Longitude</param>
+            <param name="geoDate">DateTime at Location</param>
+            <param name="offset">UTC Offset</param>
+            <returns>DateTime</returns>
+            <example>
+            The following example gets the last moon set from the point in time at the provided location using a UTC offset to convert the time to local.
+            <code>
+            DateTime d = new DateTime(2019, 2, 6);
+            
+            //JBMDL (EST TIME)
+            DateTime moon = Celestial.Get_Last_MoonSet(40.0352, -74.5844, d, -4); //2/5/2019 7:11:09 PM (EST)
+            </code>
+            </example>
+        </member>
+        <member name="M:CoordinateSharp.Celestial.Get_Next_MoonRise(CoordinateSharp.Coordinate)">
+            <summary>
+            Gets the next moon rise from the provided point in time at the passed location. 
+            </summary>
+            <param name="coordinate">Coordinate</param>
+            <returns>DateTime</returns>
+            <example>
+            The following example gets the next moon rise from the point in time at the provided location.
+            <code>
+            DateTime d = new DateTime(2019, 2, 6);
+            Coordinate c = new Coordinate(40.0352, -74.5844, d);
+            
+            //JBMDL
+            DateTime moon = Celestial.Get_Next_MoonRise(c); //2/6/2019 1:10:32 PM (UTC)
+            </code>
+            </example>
+        </member>
+        <member name="M:CoordinateSharp.Celestial.Get_Next_MoonRise(System.Double,System.Double,System.DateTime)">
+            <summary>
+            Gets the next moon rise from the provided point in time at the passed location. 
+            </summary>
+            <param name="lat">Latitude</param>
+            <param name="longi">Longitude</param>
+            <param name="geoDate">DateTime at Location</param>   
+            <returns>DateTime</returns>
+            <example>
+            The following example gets the next moon rise from the point in time at the provided location.
+            <code>
+            DateTime d = new DateTime(2019, 2, 6);
+            
+            //JBMDL
+            DateTime moon = Celestial.Get_Next_MoonRise(40.0352, -74.5844, d); //2/6/2019 1:10:32 PM (UTC)
+            </code>
+            </example>
+        </member>
+        <member name="M:CoordinateSharp.Celestial.Get_Next_MoonRise(System.Double,System.Double,System.DateTime,System.Double)">
+            <summary>
+            Gets the next moon rise from the provided point in time at the passed location. 
+            </summary>
+            <param name="lat">Latitude</param>
+            <param name="longi">Longitude</param>
+            <param name="geoDate">DateTime at Location</param>
+            <param name="offset">UTC Offset</param>
+            <returns>DateTime</returns>
+            <example>
+            The following example gets the next moon rise from the point in time at the provided location using a UTC offset to convert the time to local.
+            <code>
+            DateTime d = new DateTime(2019, 2, 6);
+            
+            //JBMDL (EST TIME)
+            DateTime moon = Celestial.Get_Next_MoonRise(40.0352, -74.5844, d, -4); //2/6/2019 9:10:32 AM (EST)
+            </code>
+            </example>
+        </member>
+        <member name="M:CoordinateSharp.Celestial.Get_Last_MoonRise(CoordinateSharp.Coordinate)">
+            <summary>
+            Gets the last moon rise from the provided point in time at the passed location. 
+            </summary>
+            <param name="coordinate">Coordinate</param>
+            <returns>DateTime</returns>
+            <example>
+            The following example gets the last moon rise from the point in time at the provided location.
+            <code>
+            DateTime d = new DateTime(2019, 2, 6);
+            Coordinate c = new Coordinate(40.0352, -74.5844, d);
+            
+            //JBMDL
+            DateTime moon = Celestial.Get_Last_MoonRise(c); //2/5/2019 12:39:02 PM (UTC)
+            </code>
+            </example>
+        </member>
+        <member name="M:CoordinateSharp.Celestial.Get_Last_MoonRise(System.Double,System.Double,System.DateTime)">
+            <summary>
+            Gets the last moon rise from the provided point in time at the passed location. 
+            </summary>
+            <param name="lat">Latitude</param>
+            <param name="longi">Longitude</param>
+            <param name="geoDate">DateTime at Location</param>   
+            <returns>DateTime</returns>
+            <example>
+            The following example gets the last moon rise from the point in time at the provided location.
+            <code>
+            DateTime d = new DateTime(2019, 2, 6);
+            
+            //JBMDL
+            DateTime moon = Celestial.Get_Last_MoonRise(40.0352, -74.5844, d); //2/5/2019 12:39:02 PM (UTC)
+            </code>
+            </example>
+        </member>
+        <member name="M:CoordinateSharp.Celestial.Get_Last_MoonRise(System.Double,System.Double,System.DateTime,System.Double)">
+            <summary>
+            Gets the last moon rise from the provided point in time at the passed location. 
+            </summary>
+            <param name="lat">Latitude</param>
+            <param name="longi">Longitude</param>
+            <param name="geoDate">DateTime at Location</param>
+            <param name="offset">UTC Offset</param>
+            <returns>DateTime</returns>
+            <example>
+            The following example gets the last moon rise from the point in time at the provided location using a UTC offset to convert the time to local.
+            <code>
+            DateTime d = new DateTime(2019, 2, 6);
+            
+            //JBMDL (EST TIME)
+            DateTime moon = Celestial.Get_Last_MoonRise(40.0352, -74.5844, d, -4); //2/5/2019 8:39:02 AM (EST)
+            </code>
+            </example>
         </member>
         <member name="M:CoordinateSharp.Celestial.Celestial_LocalTime(CoordinateSharp.Coordinate,System.Double)">
             <summary>
@@ -806,193 +1419,6 @@
             Console.WriteLine(cel.MoonRise); //3/19/2019 9:27:27 PM
             </code>
             </example>
-        </member>
-        <member name="M:CoordinateSharp.Celestial.Local_Convert(CoordinateSharp.Coordinate,System.Double,CoordinateSharp.Celestial_EagerLoad)">
-            <summary>
-            In place time slip
-            </summary>
-            <param name="c">Coordinate</param>
-            <param name="offset">hour offset</param>
-            <param name="el">Celestial EagerLoad Option</param>
-        </member>
-        <member name="P:CoordinateSharp.Celestial.SunSet">
-            <summary>
-            Sunset time.
-            </summary>
-            <remarks>If DateTime is null, check the SunCondition property</remarks>
-            <example>
-            The following example gets the sunset time in UTC at N 39, W 72 on 1-March-2018
-            <code>
-            Coordinate coordinate = new Coordinate(39,-72, new DateTime(2018,3,1));
-            Console.WriteLine(coordinate.CelestialInfo.SunSet); //3/1/2018 10:41:34 PM (UTC)
-            </code>
-            </example>
-            The following example demonstrates a returned null SunSet value as the sun does not set at N 39, W 72 on 1-March-2018. 
-            You can see why there is no value returned by checking the SunCondition property to see that the sun is down all day
-            at the specified location.
-            <code>
-            Coordinate coordinate = new Coordinate(85,-72, new DateTime(2018,3,1));
-            Console.WriteLine(coordinate.CelestialInfo.SunSet); //Returns Null
-            Console.WriteLine(coordinate.CelestialInfo.SunCondition); //DownAllDay
-            </code>
-            <example>
-            </example>
-        </member>
-        <member name="P:CoordinateSharp.Celestial.SunRise">
-            <summary>
-            Sunrise time.
-            </summary>
-            <remarks>If DateTime is null, check the SunCondition property</remarks>
-            <example>
-            The following example gets the sunrise time in UTC at N 39, W 72 on 1-March-2018
-            <code>
-            Coordinate coordinate = new Coordinate(39,-72, new DateTime(2018,3,1));
-            Console.WriteLine(coordinate.CelestialInfo.SunRise); 3/1/2018 11:22:04 AM (UTC)
-            </code>
-            </example>
-            The following example demonstrates a returned null SunRise value as the sun does not rise at N 39, W 72 on 1-March-2018. 
-            You can see why there is no value returned by checking the SunCondition property to see that the sun is down all day
-            at the specified location.
-            <code>
-            Coordinate coordinate = new Coordinate(85,-72, new DateTime(2018,3,1));
-            Console.WriteLine(coordinate.CelestialInfo.SunSet); //Returns Null
-            Console.WriteLine(coordinate.CelestialInfo.SunCondition); //DownAllDay
-            </code>
-            <example>
-            </example>
-        </member>
-        <member name="P:CoordinateSharp.Celestial.MoonSet">
-            <summary>
-            Moon set time.
-            </summary>
-            <remarks>If DateTime is null, check the MoonCondition property</remarks>
-            <example>
-            The following example gets the moon set time in UTC at N 39, W 72 on 1-March-2018
-            <code>
-            Coordinate coordinate = new Coordinate(39,-72, new DateTime(2018,3,1));
-            Console.WriteLine(coordinate.CelestialInfo.MoonSet); 3/1/2018 11:12:08 AM (UTC)
-            </code>
-            </example>
-            The following example demonstrates a returned null MoonSet value as the moon does not set at N 39, W 72 on 1-March-2018. 
-            You can see why there is no value returned by checking the MoonCondition property to see that the moon is up all day
-            at the specified location.
-            <code>
-            Coordinate coordinate = new Coordinate(85,-72, new DateTime(2018,3,1));
-            Console.WriteLine(coordinate.CelestialInfo.MoonSet); //Returns Null
-            Console.WriteLine(coordinate.CelestialInfo.MoonCondition); //UpAllDay
-            </code>
-            <example>
-            </example>
-        </member>
-        <member name="P:CoordinateSharp.Celestial.MoonRise">
-            <summary>
-            Moon rise time.
-            </summary>
-            <remarks>If DateTime is null, check the MoonCondition property</remarks>
-            <example>
-            The following example gets the moon rise time in UTC at N 39, W 72 on 1-March-2018
-            <code>
-            Coordinate coordinate = new Coordinate(39,-72, new DateTime(2018,3,1));
-            Console.WriteLine(coordinate.CelestialInfo.MoonRise); 3/1/2018 10:27:07 PM (UTC)
-            </code>
-            </example>
-            The following example demonstrates a returned null MoonRise value as the moon does not rise at N 39, W 72 on 1-March-2018. 
-            You can see why there is no value returned by checking the MoonCondition property to see that the moon is up all day
-            at the specified location.
-            <code>
-            Coordinate coordinate = new Coordinate(85,-72, new DateTime(2018,3,1));
-            Console.WriteLine(coordinate.CelestialInfo.MoonRise); //Returns Null
-            Console.WriteLine(coordinate.CelestialInfo.MoonCondition); //UpAllDay
-            </code>
-            <example>
-            </example>
-        </member>
-        <member name="P:CoordinateSharp.Celestial.SunAltitude">
-            <summary>
-            Sun altitude in degrees (E of N).
-            </summary>
-        </member>
-        <member name="P:CoordinateSharp.Celestial.SunAzimuth">
-            <summary>
-            Sun azimuth in degrees (E of N).
-            </summary>
-        </member>
-        <member name="P:CoordinateSharp.Celestial.MoonAltitude">
-            <summary>
-            Moon altitude in degrees (E of N) (corrected for parallax and refraction).
-            </summary>
-        </member>
-        <member name="P:CoordinateSharp.Celestial.MoonAzimuth">
-            <summary>
-            Moon azimuth in degrees (E of N).
-            </summary>
-        </member>
-        <member name="P:CoordinateSharp.Celestial.MoonDistance">
-            <summary>
-            Estimated moon distance from the earth.
-            </summary>
-        </member>
-        <member name="P:CoordinateSharp.Celestial.SunCondition">
-            <summary>
-            Sun's Condition based on the provided date.
-            </summary>
-        </member>
-        <member name="P:CoordinateSharp.Celestial.MoonCondition">
-            <summary>
-            Moon's condition based on the provided date.
-            </summary>
-        </member>
-        <member name="P:CoordinateSharp.Celestial.IsSunUp">
-            <summary>
-            Determine if the sun is currently up, based on sunset and sunrise time at the provided location and date.
-            </summary>
-        </member>
-        <member name="P:CoordinateSharp.Celestial.IsMoonUp">
-            <summary>
-            Determine if the moon is currently up, based on moon set and moon rise time at the provided location and date.
-            </summary>
-        </member>
-        <member name="P:CoordinateSharp.Celestial.MoonIllum">
-            <summary>
-            Moon illumination details based on the provided date.
-            </summary>
-            <remarks>
-            Contains phase, phase name, fraction and angle
-            </remarks>
-        </member>
-        <member name="P:CoordinateSharp.Celestial.Perigee">
-            <summary>
-            Moons perigee details based on the provided date.
-            </summary>
-        </member>
-        <member name="P:CoordinateSharp.Celestial.Apogee">
-            <summary>
-            Moons apogee details based on the provided date.
-            </summary>
-        </member>
-        <member name="P:CoordinateSharp.Celestial.AdditionalSolarTimes">
-            <summary>
-            Additional solar event times based on the provided date and location.
-            </summary>
-            <remarks>Contains dawn, dusk and twilight times.</remarks>
-        </member>
-        <member name="P:CoordinateSharp.Celestial.AstrologicalSigns">
-            <summary>
-            Astrological signs based on the provided date.
-            </summary>
-            <remarks>
-            Contains zodiac, moon sign and moon name during full moon events
-            </remarks>
-        </member>
-        <member name="P:CoordinateSharp.Celestial.SolarEclipse">
-            <summary>
-            Solar eclipse details.
-            </summary>
-        </member>
-        <member name="P:CoordinateSharp.Celestial.LunarEclipse">
-            <summary>
-            Lunar eclipse details.
-            </summary>
         </member>
         <member name="M:CoordinateSharp.MeeusTables.Moon_Periodic_Er(System.Double,System.Double,System.Double,System.Double,System.Double)">
             <summary>
@@ -2035,174 +2461,6 @@
             </code>
             </example>
         </member>
-        <member name="M:CoordinateSharp.Coordinate.TryParse(System.String,CoordinateSharp.Coordinate@)">
-            <summary>
-            Attempts to parse a string into a Coordinate.
-            </summary>
-            <param name="value">Coordinate string</param>
-            <param name="coordinate">Coordinate</param>
-            <returns>boolean</returns>
-            <example>
-            The following example parses a decimal degree formatted geodetic coordinate string.
-            <code>
-            Coordinate c;
-            if(Coordinate.TryParse("N 32.891º W 64.872º", out c))
-            {
-                Console.WriteLine(c); //N 32º 53' 28.212" W 64º 52' 20.914"
-            }
-            </code>
-            </example>
-        </member>
-        <member name="M:CoordinateSharp.Coordinate.TryParse(System.String,System.DateTime,CoordinateSharp.Coordinate@)">
-            <summary>
-            Attempts to parse a string into a Coordinate with specified DateTime
-            </summary>
-            <param name="value">Coordinate string</param>
-            <param name="geoDate">GeoDate</param>
-            <param name="coordinate">Coordinate</param>
-            <returns>boolean</returns>
-            <example>
-            The following example parses a decimal degree formatted geodetic coordinate string, with a provided GeoDate. 
-            <code>
-            Coordinate c;
-            if(Coordinate.TryParse("N 32.891º W 64.872º", new DateTime(2018,7,7), out c))
-            {
-                Console.WriteLine(c); //N 32º 53' 28.212" W 64º 52' 20.914"
-            }
-            </code>
-            </example>
-        </member>
-        <member name="M:CoordinateSharp.Coordinate.TryParse(System.String,CoordinateSharp.CartesianType,CoordinateSharp.Coordinate@)">
-            <summary>
-            Attempts to parse a string into a Coordinate.
-            </summary>
-            <param name="value">Coordinate string</param>
-            <param name="coordinate">Coordinate</param>
-            <param name="cartesianType">Cartesian Type</param>
-            <returns>boolean</returns>
-            <example>
-            The following example parses an ECEF formatted coordinate string. 
-            Because this is an ECEF Cartesian type coordinate, we will specify the Cartesian system type.
-            <code>
-            Coordinate c;
-            if(Coordinate.TryParse("5242.097 km, 2444.43 km, 2679.074 km", CartesianType.Cartesian, out c))
-            {
-                Console.WriteLine(c); //N 24º 59' 59.987" E 25º 0' 0.001"
-            }
-            </code>
-            </example>
-        </member>
-        <member name="M:CoordinateSharp.Coordinate.TryParse(System.String,System.DateTime,CoordinateSharp.CartesianType,CoordinateSharp.Coordinate@)">
-            <summary>
-            Attempts to parse a string into a Coordinate with specified DateTime
-            </summary>
-            <param name="value">Coordinate string</param>
-            <param name="geoDate">GeoDate</param>
-            <param name="coordinate">Coordinate</param>
-            <param name="cartesianType">Cartesian Type</param>
-            <returns>boolean</returns>
-            <example>
-            The following example parses an ECEF formatted coordinate string, with an included GeoDate. 
-            Because this is an ECEF Cartesian type coordinate, we will specify the Cartesian system type.
-            <code>
-            Coordinate c;
-            if(Coordinate.TryParse("5242.097 km, 2444.43 km, 2679.074 km", new DateTime(2018,7,7), CartesianType.ECEF, out c))
-            {
-                Console.WriteLine(c); //N 24º 59' 59.987" E 25º 0' 0.001"
-            }
-            </code>
-            </example>
-        </member>
-        <member name="M:CoordinateSharp.Coordinate.TryParse(System.String,CoordinateSharp.EagerLoad,CoordinateSharp.Coordinate@)">
-            <summary>
-            Attempts to parse a string into a Coordinate.
-            </summary>
-            <param name="value">Coordinate string</param>
-            <param name="eagerLoad">Eager loading options</param>
-            <param name="coordinate">Coordinate</param>
-            <returns>boolean</returns>
-            <example>
-            The following example parses a decimal degree formatted geodetic coordinate string.
-            Eager loading is turned off for improved efficiency.
-            <code>
-            Coordinate c;
-            EagerLoad el = new EagerLoad(false);
-            if(Coordinate.TryParse("N 32.891º W 64.872º", el, out c))
-            {
-                Console.WriteLine(c); //N 32º 53' 28.212" W 64º 52' 20.914"
-            }
-            </code>
-            </example>
-        </member>
-        <member name="M:CoordinateSharp.Coordinate.TryParse(System.String,System.DateTime,CoordinateSharp.EagerLoad,CoordinateSharp.Coordinate@)">
-            <summary>
-            Attempts to parse a string into a Coordinate with specified DateTime
-            </summary>
-            <param name="value">Coordinate string</param>
-            <param name="geoDate">GeoDate</param>
-            <param name="eagerLoad">Eager loading options</param>
-            <param name="coordinate">Coordinate</param>
-            <returns>boolean</returns>
-            <example>
-            The following example parses a decimal degree formatted geodetic coordinate string, with a provided GeoDate. 
-            Eager loading is set to load celestial calculations only.
-            <code>
-            Coordinate c;
-            EagerLoad el = new EagerLoad(EagerLoadType.Celestial);
-            if(Coordinate.TryParse("N 32.891º W 64.872º", new DateTime(2018,7,7), el, out c))
-            {
-                Console.WriteLine(c); //N 32º 53' 28.212" W 64º 52' 20.914"
-            }
-            </code>
-            </example>
-        </member>
-        <member name="M:CoordinateSharp.Coordinate.TryParse(System.String,CoordinateSharp.CartesianType,CoordinateSharp.EagerLoad,CoordinateSharp.Coordinate@)">
-            <summary>
-            Attempts to parse a string into a Coordinate.
-            </summary>
-            <param name="value">Coordinate string</param>    
-            <param name="cartesianType">Cartesian Type</param>
-            <param name="eagerLoad">Eager loading options</param>
-            <param name="coordinate">Coordinate</param>
-            <returns>boolean</returns>
-            <example>
-            The following example parses an ECEF formatted coordinate string. 
-            Because this is an ECEF Cartesian type coordinate, we will specify the Cartesian system type.
-            Eager loading options have been specified for efficiency.
-            <code>
-            Coordinate c;
-            EagerLoad el = new EagerLoad(EagerLoadType.Cartesian);
-            if(Coordinate.TryParse("5242.097 km, 2444.43 km, 2679.074 km", CartesianType.Cartesian, el, out c))
-            {
-                Console.WriteLine(c); //N 24º 59' 59.987" E 25º 0' 0.001"
-            }
-            </code>
-            </example>
-        </member>
-        <member name="M:CoordinateSharp.Coordinate.TryParse(System.String,System.DateTime,CoordinateSharp.CartesianType,CoordinateSharp.EagerLoad,CoordinateSharp.Coordinate@)">
-            <summary>
-            Attempts to parse a string into a Coordinate with specified DateTime
-            </summary>
-            <param name="value">Coordinate string</param>
-            <param name="geoDate">GeoDate</param>
-            <param name="cartesianType">Cartesian Type</param>
-            <param name="eagerLoad">Eager loading options</param>
-            <param name="coordinate">Coordinate</param>
-            <returns>boolean</returns>
-            <example>
-            The following example parses an ECEF formatted coordinate string, with an included GeoDate. 
-            Because this is an ECEF Cartesian type coordinate, we will specify the Cartesian system type.
-            Eager loading options have been specified for efficiency.
-            <code>
-            Coordinate c;
-            EagerLoad el = new EagerLoad(EagerLoadType.Cartesian);
-            if(Coordinate.TryParse("5242.097 km, 2444.43 km, 2679.074 km", new DateTime(2018,7,7), CartesianType.ECEF, el, out c))
-            {
-                Console.WriteLine(c); //N 24º 59' 59.987" E 25º 0' 0.001"
-            }
-            </code>
-            </example>
-        </member>
         <member name="M:CoordinateSharp.Coordinate.Lock_UTM_MGRS_Zone(System.Int32)">
             <summary>
             Locks converted UTM and MGRS longitudinal grid zones to the specified zone number. This will allow over-projection and allow users to remain in a single desired zone.
@@ -2327,6 +2585,302 @@
             Used to determine what format the coordinate was parsed from.
             Will equal "None" if Coordinate was not initialized via a TryParse() method.
             </summary>
+        </member>
+        <member name="M:CoordinateSharp.Coordinate.Parse(System.String)">
+            <summary>
+            Parses a string into a Coordinate.
+            </summary>
+            <param name="value">Coordinate string</param>
+            <returns>Coordinate</returns>
+            <example>
+            The following example parses a decimal degree formatted geodetic coordinate string.
+            <code>
+            Coordinate c = Coordinate.Parse("N 32.891º W 64.872º", out c);
+            </code>
+            </example>
+        </member>
+        <member name="M:CoordinateSharp.Coordinate.Parse(System.String,System.DateTime)">
+            <summary>
+            Parses a string into a Coordinate with specified date.
+            </summary>
+            <param name="value">Coordinate string</param>
+            <param name="geoDate">GeoDate</param>
+            <returns>Coordinate</returns>
+            <example>
+            The following example parses a decimal degree formatted geodetic coordinate string, with a provided GeoDate. 
+            <code>
+            Coordinate c = Coordinate.Parse("N 32.891º W 64.872º", new DateTime(2018,7,7));
+            </code>
+            </example>
+        </member>
+        <member name="M:CoordinateSharp.Coordinate.Parse(System.String,CoordinateSharp.CartesianType)">
+            <summary>
+            Parses a string into a Coordinate with a specified Cartesian system type.
+            </summary>
+            <param name="value">Coordinate string</param>
+            <param name="cartesianType">Cartesian Type</param>
+            <returns>Coordinate</returns>
+            <example>
+            The following example parses an ECEF formatted coordinate string. 
+            Because this is an ECEF Cartesian type coordinate, we will specify the Cartesian system type.
+            <code>
+            Coordinate c = Coordinate.Parse("5242.097 km, 2444.43 km, 2679.074 km", CartesianType.Cartesian);
+            </code>
+            </example>
+        </member>
+        <member name="M:CoordinateSharp.Coordinate.Parse(System.String,System.DateTime,CoordinateSharp.CartesianType)">
+            <summary>
+            Parses a string into a Coordinate with specified DateTime and Cartesian system type.
+            </summary>
+            <param name="value">Coordinate string</param>
+            <param name="geoDate">GeoDate</param>
+            <param name="cartesianType">Cartesian Type</param>
+            <returns>Coordinate</returns>
+            <example>
+            The following example parses an ECEF formatted coordinate string, with an included GeoDate. 
+            Because this is an ECEF Cartesian type coordinate, we will specify the Cartesian system type.
+            <code>
+            Coordinate c = Coordinate.Parse("5242.097 km, 2444.43 km, 2679.074 km", new DateTime(2018,7,7), CartesianType.ECEF);
+            </code>
+            </example>
+        </member>
+        <member name="M:CoordinateSharp.Coordinate.Parse(System.String,CoordinateSharp.EagerLoad)">
+            <summary>
+            Parses a string into a Coordinate with specified eager loading settings.
+            </summary>
+            <param name="value">Coordinate string</param>
+            <param name="eagerLoad">Eager loading options</param>
+            <returns>Coordinate</returns>
+            <example>
+            The following example parses a decimal degree formatted geodetic coordinate string.
+            Eager loading is turned off for improved efficiency.
+            <code>
+            EagerLoad el = new EagerLoad(false);
+            Coordinate c = Coordinate.Parse("N 32.891º W 64.872º", el);
+            </code>
+            </example>
+        </member>
+        <member name="M:CoordinateSharp.Coordinate.Parse(System.String,System.DateTime,CoordinateSharp.EagerLoad)">
+            <summary>
+            Parses a string into a Coordinate with a specified date and eager loading settings.
+            </summary>
+            <param name="value">Coordinate string</param>
+            <param name="geoDate">GeoDate</param>
+            <param name="eagerLoad">Eager loading options</param>
+            <returns>Coordinate</returns>
+            <example>
+            The following example parses a decimal degree formatted geodetic coordinate string with a provided GeoDate. 
+            Eager loading is set to load celestial calculations only.
+            <code>
+            EagerLoad el = new EagerLoad(EagerLoadType.Celestial);
+            Coordinate c = Coordinate.Parse("N 32.891º W 64.872º", new DateTime(2018,7,7), el);       
+            </code>
+            </example>
+        </member>
+        <member name="M:CoordinateSharp.Coordinate.Parse(System.String,CoordinateSharp.CartesianType,CoordinateSharp.EagerLoad)">
+            <summary>
+            Parses a string into a Coordinate with a specified Cartesian system type and eager loading settings.
+            </summary>
+            <param name="value">Coordinate string</param>    
+            <param name="cartesianType">Cartesian Type</param>
+            <param name="eagerLoad">Eager loading options</param>
+            <returns>Coordinate</returns>
+            <example>
+            The following example parses an ECEF formatted coordinate string. 
+            Because this is an ECEF Cartesian type coordinate, we will specify the Cartesian system type.
+            Eager loading options have been specified for efficiency.
+            <code>      
+            EagerLoad el = new EagerLoad(EagerLoadType.Cartesian);
+            Coordinate c = Coordinate.Parse("5242.097 km, 2444.43 km, 2679.074 km", CartesianType.Cartesian, el);
+            </code>
+            </example>
+        </member>
+        <member name="M:CoordinateSharp.Coordinate.Parse(System.String,System.DateTime,CoordinateSharp.CartesianType,CoordinateSharp.EagerLoad)">
+            <summary>
+            Parses a string into a Coordinate with a specified date, Cartesian system type and eager loading settings.
+            </summary>
+            <param name="value">Coordinate string</param>
+            <param name="geoDate">GeoDate</param>
+            <param name="cartesianType">Cartesian Type</param>
+            <param name="eagerLoad">Eager loading options</param>
+            <returns>Coordinate</returns>
+            <example>
+            The following example parses an ECEF formatted coordinate string, with an included GeoDate. 
+            Because this is an ECEF Cartesian type coordinate, we will specify the Cartesian system type.
+            Eager loading options have been specified for efficiency.
+            <code>
+            EagerLoad el = new EagerLoad(EagerLoadType.Cartesian);
+            Coordinate c = Coordinate.Parse("5242.097 km, 2444.43 km, 2679.074 km", new DateTime(2018,7,7), CartesianType.ECEF, el);    
+            </code>
+            </example>
+        </member>
+        <member name="M:CoordinateSharp.Coordinate.TryParse(System.String,CoordinateSharp.Coordinate@)">
+            <summary>
+            Attempts to parse a string into a Coordinate.
+            </summary>
+            <param name="value">Coordinate string</param>
+            <param name="coordinate">Coordinate</param>
+            <returns>boolean</returns>
+            <example>
+            The following example parses a decimal degree formatted geodetic coordinate string.
+            <code>
+            Coordinate c;
+            if(Coordinate.TryParse("N 32.891º W 64.872º", out c))
+            {
+                Console.WriteLine(c); //N 32º 53' 28.212" W 64º 52' 20.914"
+            }
+            </code>
+            </example>
+        </member>
+        <member name="M:CoordinateSharp.Coordinate.TryParse(System.String,System.DateTime,CoordinateSharp.Coordinate@)">
+            <summary>
+            Attempts to parse a string into a Coordinate with specified date.
+            </summary>
+            <param name="value">Coordinate string</param>
+            <param name="geoDate">GeoDate</param>
+            <param name="coordinate">Coordinate</param>
+            <returns>boolean</returns>
+            <example>
+            The following example parses a decimal degree formatted geodetic coordinate string, with a provided GeoDate. 
+            <code>
+            Coordinate c;
+            if(Coordinate.TryParse("N 32.891º W 64.872º", new DateTime(2018,7,7), out c))
+            {
+                Console.WriteLine(c); //N 32º 53' 28.212" W 64º 52' 20.914"
+            }
+            </code>
+            </example>
+        </member>
+        <member name="M:CoordinateSharp.Coordinate.TryParse(System.String,CoordinateSharp.CartesianType,CoordinateSharp.Coordinate@)">
+            <summary>
+            Attempts to parse a string into a Coordinate with a specified Cartesian system type.
+            </summary>
+            <param name="value">Coordinate string</param>
+            <param name="cartesianType">Cartesian Type</param>
+            <param name="coordinate">Coordinate</param>
+            <returns>boolean</returns>
+            <example>
+            The following example parses an ECEF formatted coordinate string. 
+            Because this is an ECEF Cartesian type coordinate, we will specify the Cartesian system type.
+            <code>
+            Coordinate c;
+            if(Coordinate.TryParse("5242.097 km, 2444.43 km, 2679.074 km", CartesianType.Cartesian, out c))
+            {
+                Console.WriteLine(c); //N 24º 59' 59.987" E 25º 0' 0.001"
+            }
+            </code>
+            </example>
+        </member>
+        <member name="M:CoordinateSharp.Coordinate.TryParse(System.String,System.DateTime,CoordinateSharp.CartesianType,CoordinateSharp.Coordinate@)">
+            <summary>
+            Attempts to parse a string into a Coordinate with specified DateTime and Cartesian system type
+            </summary>
+            <param name="value">Coordinate string</param>
+            <param name="geoDate">GeoDate</param>       
+            <param name="cartesianType">Cartesian Type</param>
+            <param name="coordinate">Coordinate</param>
+            <returns>boolean</returns>
+            <example>
+            The following example parses an ECEF formatted coordinate string, with an included GeoDate. 
+            Because this is an ECEF Cartesian type coordinate, we will specify the Cartesian system type.
+            <code>
+            Coordinate c;
+            if(Coordinate.TryParse("5242.097 km, 2444.43 km, 2679.074 km", new DateTime(2018,7,7), CartesianType.ECEF, out c))
+            {
+                Console.WriteLine(c); //N 24º 59' 59.987" E 25º 0' 0.001"
+            }
+            </code>
+            </example>
+        </member>
+        <member name="M:CoordinateSharp.Coordinate.TryParse(System.String,CoordinateSharp.EagerLoad,CoordinateSharp.Coordinate@)">
+            <summary>
+            Attempts to parse a string into a Coordinate with specified eager loading settings.
+            </summary>
+            <param name="value">Coordinate string</param>
+            <param name="eagerLoad">Eager loading options</param>
+            <param name="coordinate">Coordinate</param>
+            <returns>boolean</returns>
+            <example>
+            The following example parses a decimal degree formatted geodetic coordinate string.
+            Eager loading is turned off for improved efficiency.
+            <code>
+            Coordinate c;
+            EagerLoad el = new EagerLoad(false);
+            if(Coordinate.TryParse("N 32.891º W 64.872º", el, out c))
+            {
+                Console.WriteLine(c); //N 32º 53' 28.212" W 64º 52' 20.914"
+            }
+            </code>
+            </example>
+        </member>
+        <member name="M:CoordinateSharp.Coordinate.TryParse(System.String,System.DateTime,CoordinateSharp.EagerLoad,CoordinateSharp.Coordinate@)">
+            <summary>
+            Attempts to parse a string into a Coordinate with a specified date and eager loading settings.
+            </summary>
+            <param name="value">Coordinate string</param>
+            <param name="geoDate">GeoDate</param>
+            <param name="eagerLoad">Eager loading options</param>
+            <param name="coordinate">Coordinate</param>
+            <returns>boolean</returns>
+            <example>
+            The following example parses a decimal degree formatted geodetic coordinate string, with a provided GeoDate. 
+            Eager loading is set to load celestial calculations only.
+            <code>
+            Coordinate c;
+            EagerLoad el = new EagerLoad(EagerLoadType.Celestial);
+            if(Coordinate.TryParse("N 32.891º W 64.872º", new DateTime(2018,7,7), el, out c))
+            {
+                Console.WriteLine(c); //N 32º 53' 28.212" W 64º 52' 20.914"
+            }
+            </code>
+            </example>
+        </member>
+        <member name="M:CoordinateSharp.Coordinate.TryParse(System.String,CoordinateSharp.CartesianType,CoordinateSharp.EagerLoad,CoordinateSharp.Coordinate@)">
+            <summary>
+            Attempts to parse a string into a Coordinate with a specified Cartesian system type and eager loading settings.
+            </summary>
+            <param name="value">Coordinate string</param>    
+            <param name="cartesianType">Cartesian Type</param>
+            <param name="eagerLoad">Eager loading options</param>
+            <param name="coordinate">Coordinate</param>
+            <returns>boolean</returns>
+            <example>
+            The following example parses an ECEF formatted coordinate string. 
+            Because this is an ECEF Cartesian type coordinate, we will specify the Cartesian system type.
+            Eager loading options have been specified for efficiency.
+            <code>
+            Coordinate c;
+            EagerLoad el = new EagerLoad(EagerLoadType.Cartesian);
+            if(Coordinate.TryParse("5242.097 km, 2444.43 km, 2679.074 km", CartesianType.Cartesian, el, out c))
+            {
+                Console.WriteLine(c); //N 24º 59' 59.987" E 25º 0' 0.001"
+            }
+            </code>
+            </example>
+        </member>
+        <member name="M:CoordinateSharp.Coordinate.TryParse(System.String,System.DateTime,CoordinateSharp.CartesianType,CoordinateSharp.EagerLoad,CoordinateSharp.Coordinate@)">
+            <summary>
+            Attempts to parse a string into a Coordinate with a specified date, Cartesian system type and eager loading settings.
+            </summary>
+            <param name="value">Coordinate string</param>
+            <param name="geoDate">GeoDate</param>
+            <param name="cartesianType">Cartesian Type</param>
+            <param name="eagerLoad">Eager loading options</param>
+            <param name="coordinate">Coordinate</param>
+            <returns>boolean</returns>
+            <example>
+            The following example parses an ECEF formatted coordinate string, with an included GeoDate. 
+            Because this is an ECEF Cartesian type coordinate, we will specify the Cartesian system type.
+            Eager loading options have been specified for efficiency.
+            <code>
+            Coordinate c;
+            EagerLoad el = new EagerLoad(EagerLoadType.Cartesian);
+            if(Coordinate.TryParse("5242.097 km, 2444.43 km, 2679.074 km", new DateTime(2018,7,7), CartesianType.ECEF, el, out c))
+            {
+                Console.WriteLine(c); //N 24º 59' 59.987" E 25º 0' 0.001"
+            }
+            </code>
+            </example>
         </member>
         <member name="T:CoordinateSharp.CoordinatePart">
             <summary>
@@ -2459,43 +3013,6 @@
             </example>
             <returns>double</returns>
         </member>
-        <member name="M:CoordinateSharp.CoordinatePart.TryParse(System.String,CoordinateSharp.CoordinatePart@)">
-            <summary>
-            Attempts to parse a string into a CoordinatePart.
-            </summary>
-            <param name="value">CoordinatePart string</param>
-            <param name="coordinatePart">CoordinatePart object to populate</param>
-            <returns>boolean</returns>
-            <example>
-            The following example demonstrates how to parse a latitude from a string.
-            <code>
-            CoordinatePart cp;
-            if(CoordinatePart.TryParse("N 32.891º", out cp))
-            {
-                Console.WriteLine(cp); //N 32º 53' 28.212"
-            }
-            </code>
-            </example>
-        </member>
-        <member name="M:CoordinateSharp.CoordinatePart.TryParse(System.String,CoordinateSharp.CoordinateType,CoordinateSharp.CoordinatePart@)">
-            <summary>
-            Attempts to parse a string into a CoordinatePart. 
-            </summary>
-            <param name="value">CoordinatePart string</param>
-            <param name="cType">CoordinateType</param>
-            <param name="coordinatePart">CoordinatePart object to populate</param>
-            <returns>boolean</returns>
-            <example>
-            The following example demonstrates how to parse a latitude from a string.
-            <code>
-            CoordinatePart cp;
-            if(CoordinatePart.TryParse("-32.891º", CoordinateType.Long, out cp))
-            {
-                Console.WriteLine(cp); //W 32º 53' 27.6"
-            }
-            </code>
-            </example>
-        </member>
         <member name="E:CoordinateSharp.CoordinatePart.PropertyChanged">
             <summary>
             Property changed event
@@ -2565,6 +3082,71 @@
             <summary>
             Used to determine the set coordinate part string format.
             </summary>
+        </member>
+        <member name="M:CoordinateSharp.CoordinatePart.Parse(System.String)">
+            <summary>
+            Parses a string into a CoordinatePart.
+            </summary>
+            <param name="value">CoordinatePart string</param>
+            <returns>CoordinatePart</returns>
+            <example>
+            The following example demonstrates how to parse a latitude from a string.
+            <code>
+            CoordinatePart cp = CoordinatePart.Parse("N 32.891º");       
+            </code>
+            </example>
+        </member>
+        <member name="M:CoordinateSharp.CoordinatePart.Parse(System.String,CoordinateSharp.CoordinateType)">
+            <summary>
+            Parses a string into a CoordinatePart with specified part type (latitude/longitude). 
+            </summary>
+            <param name="value">CoordinatePart string</param>
+            <param name="cType">CoordinateType</param>
+            <returns>CoordinatePart</returns>
+            <example>
+            The following example demonstrates how to parse a latitude from a string.
+            Latitude is specified so that the parser knows to attempt parse in latitude.
+            <code>
+            CoordinatePart cp = CoordinatePart.Parse("-32.891º", CoordinateType.Long);
+            </code>
+            </example>
+        </member>
+        <member name="M:CoordinateSharp.CoordinatePart.TryParse(System.String,CoordinateSharp.CoordinatePart@)">
+            <summary>
+            Attempts to parse a string into a CoordinatePart.
+            </summary>
+            <param name="value">CoordinatePart string</param>
+            <param name="coordinatePart">CoordinatePart object to populate</param>
+            <returns>boolean</returns>
+            <example>
+            The following example demonstrates how to parse a latitude from a string.
+            <code>
+            CoordinatePart cp;
+            if(CoordinatePart.TryParse("N 32.891º", out cp))
+            {
+                Console.WriteLine(cp); //N 32º 53' 28.212"
+            }
+            </code>
+            </example>
+        </member>
+        <member name="M:CoordinateSharp.CoordinatePart.TryParse(System.String,CoordinateSharp.CoordinateType,CoordinateSharp.CoordinatePart@)">
+            <summary>
+            Attempts to parse a string into a CoordinatePart. 
+            </summary>
+            <param name="value">CoordinatePart string</param>
+            <param name="cType">CoordinateType</param>
+            <param name="coordinatePart">CoordinatePart object to populate</param>
+            <returns>boolean</returns>
+            <example>
+            The following example demonstrates how to parse a latitude from a string.
+            <code>
+            CoordinatePart cp;
+            if(CoordinatePart.TryParse("-32.891º", CoordinateType.Long, out cp))
+            {
+                Console.WriteLine(cp); //W 32º 53' 27.6"
+            }
+            </code>
+            </example>
         </member>
         <member name="M:CoordinateSharp.Distance_Assistant.Direct_Ell(System.Double,System.Double,System.Double,System.Double,System.Double[])">
             <summary>
@@ -3905,6 +4487,7 @@
             <param name="lat">DD Latitude</param>
             <param name="longi">DD longitude</param>
             <param name="utm">UTM Object to modify</param>
+            <param name="szone">specified zone (for under/over projection</param>
         </member>
         <member name="M:CoordinateSharp.UniversalTransverseMercator.ToString">
             <summary>

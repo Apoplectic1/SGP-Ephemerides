@@ -21,7 +21,7 @@ namespace SGP_Ephemerides.Charts
         private List<Series> mSeriesList;
         private Series mSeries;
         private Legend mLegend;
-        private Support.UIState mUIState;
+        private UIState mUIState;
 
         private AltitudeSeries mAltitudeSeries;
 
